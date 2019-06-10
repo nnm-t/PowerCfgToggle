@@ -15,7 +15,8 @@
 
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
             
-            PowerCfg.Execute();
+            var powerConfig = new PowerConfig();
+            powerConfig.Execute();
         }
 
         protected override void OnExit(ExitEventArgs e)
