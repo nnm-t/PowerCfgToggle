@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using PowerCfgToggle.Properties;
 
 namespace PowerCfgToggle
 {
@@ -18,6 +19,14 @@ namespace PowerCfgToggle
             container.Add(this);
 
             InitializeComponent();
+        }
+
+        public void Popup(string title, string text)
+        {
+            myNotifyIcon.BalloonTipTitle = title;
+            myNotifyIcon.BalloonTipText = text;
+            
+            myNotifyIcon.ShowBalloonTip(1000);
         }
     }
 }

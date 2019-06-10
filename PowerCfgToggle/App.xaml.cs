@@ -1,4 +1,6 @@
-﻿namespace PowerCfgToggle
+﻿using System.Threading;
+
+namespace PowerCfgToggle
 {
     using System.Windows;
 
@@ -16,7 +18,9 @@
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
             
             var powerConfig = new PowerConfig();
-            powerConfig.Execute();
+            
+            notifyIcon.Popup("Power Config Toggle", powerConfig.Execute()); 
+            
         }
 
         protected override void OnExit(ExitEventArgs e)

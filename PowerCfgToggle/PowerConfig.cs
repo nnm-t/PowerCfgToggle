@@ -15,10 +15,10 @@ namespace PowerCfgToggle
         private readonly Regex currentRegex = new Regex(@"\*$");
 
         private readonly LinkedList<PowerConfigPair> powerConfigs;
+
+        private readonly ProcessStartInfo startInfo;
         
         private PowerConfigPair currentConfig;
-
-        private ProcessStartInfo startInfo;
 
         public PowerConfig()
         {
@@ -32,7 +32,7 @@ namespace PowerCfgToggle
             powerConfigs = new LinkedList<PowerConfigPair>();
         }
 
-        public void Execute()
+        public string Execute()
         {
             // GUID一覧を取得
             foreach (var pair in PickUpGuid())
@@ -44,6 +44,51 @@ namespace PowerCfgToggle
                 
                 powerConfigs.AddLast(pair);
             }
+            
+            // 次の電源設定にスイッチ
+            return ApplyConfig(FindNextConfig());
+        }
+
+        private string ApplyConfig(PowerConfigPair config)
+        {
+            // 引数を設定コマンドへ変更
+            startInfo.Arguments = $"/s {config.Guid}";
+            
+            // コマンド実行
+            var process = Process.Start(startInfo);
+
+            if (process == null)
+            {
+                throw new InvalidOperationException();
+            }
+            
+            process.WaitForExit();
+
+            return config.Name;
+        }
+
+        private PowerConfigPair FindNextConfig()
+        {
+            foreach (var pair in powerConfigs)
+            {
+                if (!Equals(currentConfig, pair))
+                {
+                    continue;
+                }
+                
+                // リストから一致するか探す
+                
+                if (Equals(pair, powerConfigs.Last.Value))
+                {
+                    // 現設定がリストの最後の時, 最初のノードの値を反映
+                    return powerConfigs.First.Value;
+                }
+                
+                // そうでない時は次のノードの値を反映
+                return powerConfigs.Find(pair)?.Next?.Value;
+            }
+
+            return null;
         }
 
         private IEnumerable<PowerConfigPair> PickUpGuid()
@@ -94,6 +139,8 @@ namespace PowerCfgToggle
                     yield return pair;
                 }
             }
+
+            process.WaitForExit();
         }
     }
 }
