@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotifyIcon));
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.myNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.toolStripMenuItemExitApp = new System.Windows.Forms.ToolStripMenuItem();
+            this.myNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip.SuspendLayout();
             // 
             // contextMenuStrip
@@ -41,17 +42,18 @@
             this.contextMenuStrip.Name = "contextMenuStrip";
             this.contextMenuStrip.Size = new System.Drawing.Size(117, 26);
             // 
-            // myNotifyIcon
-            // 
-            this.myNotifyIcon.ContextMenuStrip = this.contextMenuStrip;
-            this.myNotifyIcon.Text = "notifyIcon1";
-            this.myNotifyIcon.Visible = true;
-            // 
             // toolStripMenuItemExitApp
             // 
             this.toolStripMenuItemExitApp.Name = "toolStripMenuItemExitApp";
             this.toolStripMenuItemExitApp.Size = new System.Drawing.Size(116, 22);
             this.toolStripMenuItemExitApp.Text = "終了 (&X)";
+            // 
+            // myNotifyIcon
+            // 
+            this.myNotifyIcon.ContextMenuStrip = this.contextMenuStrip;
+            this.myNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("myNotifyIcon.Icon")));
+            this.myNotifyIcon.Text = "Power Config Toggle";
+            this.myNotifyIcon.Visible = true;
             this.contextMenuStrip.ResumeLayout(false);
 
         }

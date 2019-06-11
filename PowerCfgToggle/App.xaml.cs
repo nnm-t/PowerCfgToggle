@@ -1,17 +1,18 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace PowerCfgToggle
 {
-    using System.Windows;
 
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App
     {
-        private NotifyIcon notifyIcon = new NotifyIcon();
+        private readonly NotifyIcon notifyIcon = new NotifyIcon();
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
@@ -19,8 +20,11 @@ namespace PowerCfgToggle
             
             var powerConfig = new PowerConfig();
             
-            notifyIcon.Popup("Power Config Toggle", powerConfig.Execute()); 
-            
+            notifyIcon.Popup("電源設定", powerConfig.Execute());
+
+            await Task.Delay(TimeSpan.FromSeconds(5));
+
+            Current.Shutdown();
         }
 
         protected override void OnExit(ExitEventArgs e)

@@ -8,11 +8,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PowerCfgToggle")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("powercfg.exe Toggle Application.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PowerCfgToggle")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCompany("Hon Nam Yuu Tee Nai")]
+[assembly: AssemblyProduct("Power Config Toggle")]
+[assembly: AssemblyCopyright("Copyright ©  2019 Noname Kamisawa")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

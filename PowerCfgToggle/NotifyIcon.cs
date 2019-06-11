@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using PowerCfgToggle.Properties;
 
 namespace PowerCfgToggle
 {
@@ -11,7 +10,10 @@ namespace PowerCfgToggle
         {
             InitializeComponent();
 
-            this.toolStripMenuItemExitApp.Click += (sender, e) => { Application.Current.Shutdown(); };
+            toolStripMenuItemExitApp.Click += Shutdown;
+
+            myNotifyIcon.BalloonTipClicked += Shutdown;
+            myNotifyIcon.BalloonTipClosed += Shutdown;
         }
 
         public NotifyIcon(IContainer container)
@@ -27,6 +29,11 @@ namespace PowerCfgToggle
             myNotifyIcon.BalloonTipText = text;
             
             myNotifyIcon.ShowBalloonTip(1000);
+        }
+
+        private void Shutdown<T>(object sender, T e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
